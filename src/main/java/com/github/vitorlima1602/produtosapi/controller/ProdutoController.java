@@ -38,16 +38,8 @@ public class ProdutoController {
 
     @PutMapping("/{id}")
     public Produto atualizar(@PathVariable("id") String id, @RequestBody Produto produto) {
-        Optional<Produto> produtoExistente = produtoRepository.findById(id);
-        if (produtoExistente.isPresent()) {
-            Produto p = produtoExistente.get();
-            p.setNome(produto.getNome());
-            p.setDescricao(produto.getDescricao());
-            p.setPreco(produto.getPreco());
-            produtoRepository.save(p);
-            return p;
-        } else {
-            return null;
-        }
+        produto.setId(id);
+        produtoRepository.save(produto);
+        return produto;
     }
 }
